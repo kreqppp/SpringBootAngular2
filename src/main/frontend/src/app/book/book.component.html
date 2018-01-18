@@ -1,0 +1,32 @@
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Genre</th>
+    <th>Year of publication</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let book of books">
+    <td>{{book.id}}</td>
+    <td>{{book.title}}</td>
+    <td>{{book.author}}</td>
+    <td>{{book.genre}}</td>
+    <td>{{book.yearOfPublication}}</td>
+  </tr>
+  </tbody>
+</table>
+<!--
+<form [formGroup]="bookForm" (ngSubmit)="onBookFormSubmit()">
+  <tr>
+    <td>Enter Title</td>
+    <td><input formControlName="title"></td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+    <button>Create</button>
+  </tr>
+</form>
+-->

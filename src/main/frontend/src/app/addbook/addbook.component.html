@@ -1,0 +1,23 @@
+<form class="col s12" [formGroup]="bookForm" (ngSubmit)="onBookFormSubmit()">
+    <div class="input-field col s12">
+      <td>Title</td>
+      <td><input formControlName="title"></td>
+    </div>
+    <div class="input-field col s12">
+      <td>Author</td>
+      <td><input formControlName="author"></td>
+    </div>
+    <div class="input-field col s12">
+      <td>Genre</td>
+      <td><input formControlName="genre"></td>
+    </div>
+    <div class="input-field col s12">
+      <td>Year of publication</td>
+      <td><input formControlName="yearOfPublication"></td>
+    </div>
+  <tr>
+    <td colspan="1"></td>
+    <button class="waves-effect waves-light btn">Create</button>
+  </tr>
+</form>
+
