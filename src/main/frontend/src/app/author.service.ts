@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Author} from "./author/author.model";
+import {Book} from "./book/book.model";
 
 @Injectable()
 export class AuthorService {
@@ -28,10 +29,11 @@ export class AuthorService {
       .catch(this.handleError);
   }
 
-  //update athor
-  updateArticle(author: Author):Observable<number> {
+  //update author
+  updateAuthor(author: Author, book: Book):Observable<number> {
     let cpHeaders = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: cpHeaders});
+    author.books.push(book);
     return this.http.put(this.authorUrl, author, options)
       .map(success => success.status)
       .catch(this.handleError);

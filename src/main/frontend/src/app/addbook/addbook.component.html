@@ -3,10 +3,24 @@
       <td>Title</td>
       <td><input formControlName="title"></td>
     </div>
-    <div class="input-field col s12">
-      <td>Author</td>
-      <td><input formControlName="author"></td>
+<form>
+    <div class="form-group">
+        <label for="selectedObject">
+            Author
+        </label>
+        <select id="selectedObject" name="selectedObject"
+                [(ngModel)]="selectedObject" (change)="updateObjValue3($event)">
+            <option *ngFor="let author of authors" [value]="author.id">{{author.firstname}}
+                {{author.lastname}}</option>
+        </select>
     </div>
+</form>
+    <!--
+    <div class="input-field col s12">
+        <td>Author</td>
+        <td><input formControlName="author"></td>
+    </div>
+    -->
     <div class="input-field col s12">
       <td>Genre</td>
       <td><input formControlName="genre"></td>

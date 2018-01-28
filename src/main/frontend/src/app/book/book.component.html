@@ -12,7 +12,7 @@
   <tr *ngFor="let book of books">
     <td>{{book.id}}</td>
     <td>{{book.title}}</td>
-    <td>{{book.author}}</td>
+    <td>{{book.author.firstname}} {{book.author.lastname}}</td>
     <td>{{book.genre}}</td>
     <td>{{book.yearOfPublication}}</td>
   </tr>

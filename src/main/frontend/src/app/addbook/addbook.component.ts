@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Book} from "../book/book.model";
 import {BookService} from "../book.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, NgSelectOption, SelectControlValueAccessor, Validators} from "@angular/forms";
 import {BookComponent} from "../book/book.component";
 import * as webdriver from "selenium-webdriver";
+import {Author} from "../author/author.model";
+import {AuthorService} from "../author.service";
+import {selector} from "rxjs/operator/publish";
+import {visitValue} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-addbook',
@@ -11,6 +15,11 @@ import * as webdriver from "selenium-webdriver";
   styleUrls: ['./addbook.component.css']
 })
 export class AddbookComponent implements OnInit {
+
+  authors: Author[];
+  value: string;
+
+  selectedObject: Author;
 
   statusCode: number;
   requestProcessing = false;
@@ -23,17 +32,26 @@ export class AddbookComponent implements OnInit {
     yearOfPublication: new FormControl('', Validators.required)
   });
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private authorService: AuthorService) { }
 
   ngOnInit() {
+    this.authorService.getAllAuthors()
+        .subscribe(
+            data => this.authors = data,
+            errorCode =>  this.statusCode = errorCode);
   }
+
+    updateObjValue3(event:Event):void {
+        this.value = (<HTMLSelectElement>event.srcElement).value;
+        console.log(this.value);
+    }
 
   //submit book
   onBookFormSubmit() {
     this.processValidation = true;
     this.preProcessConfigurations();
     let title = this.bookForm.get('title').value.trim();
-    let author = this.bookForm.get('author').value.trim();
+    let author = this.authors[Number(this.value)-1];
     let genre = this.bookForm.get('genre').value.trim();
     let yearOfPublication = this.bookForm.get('yearOfPublication').value.trim();
       let book = new Book(null, title, author, genre, yearOfPublication);
@@ -44,7 +62,10 @@ export class AddbookComponent implements OnInit {
             this.backToCreateBook();
           },
           errorCode => this.statusCode = errorCode);
+      this.authorService.updateAuthor(this.authors[Number(this.value)-1], book);
     }
+
+
 
 
   preProcessConfigurations() {

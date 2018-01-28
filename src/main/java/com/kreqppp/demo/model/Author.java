@@ -4,6 +4,7 @@ package com.kreqppp.demo.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -18,6 +19,7 @@ public class Author {
 
     private String lastname;
 
+    @ManyToOne
     private Book[] books;
 
     public Author() {
